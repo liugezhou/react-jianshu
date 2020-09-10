@@ -2,7 +2,7 @@ import React from 'react';
 import { CSSTransition } from 'react-transition-group';
 import {HeaderWrapper,Logo, Nav,NavItem,NavSearch, Addtion, Button,SearchWrapper} from './style';
 import { connect } from 'react-redux';
-import * as creators from './store/actionCreators';
+import { creators }  from './store';
 
 const Header = (props)=>{
   return(
@@ -39,7 +39,7 @@ const Header = (props)=>{
 
 const mapStateToProps = (state) => {
   return {
-    focused: state.header.focused
+    focused: state.header.get('focused')
   }
 }
 const mapDispatchToProps = (dispatch) => {

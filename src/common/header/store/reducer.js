@@ -1,18 +1,17 @@
 import * as types from './actionTypes';
-const defaultState = {
-  focused: false
-};
+import { fromJS } from  'immutable';
 
-export default(state=defaultState, action) =>{
+const defaultState = fromJS({
+  focused: false
+});
+
+export default(state = defaultState, action) =>{
   if(Object.is(action.type,types.FOCUS_INPUT)){
-    return {
-      focused:true
-    }
+    // immutable的set方法，会结合之前immutable对象的值和设置的值，返回一个全新的对象
+    return state.set('focused',true)
   }
   if(Object.is(action.type,types.BLUR_INPUT)){
-    return {
-      focused:false
-    }
+    return state.set('focused',false)
   }
   return state;
 }
