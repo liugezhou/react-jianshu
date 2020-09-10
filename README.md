@@ -31,3 +31,8 @@
 > + 接着在header文件下的入口index中间中。我们在读取的时候就不能写成`state.header.focused`来读取focused了，需要改成`state.header.get('focused')`来获取此值。 
 > + 最后，在reducer中的我们设置值的时候这么返回：`return state.set('focused',true)`,只是看这行代码的时候，我们感觉貌似去修改了state，其实不然，这是因为：`immutable对象中的set方法，会结合之前immutable对象的值和设置的值，返回一个全新的对象`。
 
+##### 8.使用redux-immutable统一数据样式
+> 这个小节要解决的问题是：我们在header组件中获取focused的值的时候代码是这么写的：`state.header.get('focused')`,这行代码state.header是一个js对象。然后调用get方法获取的又是一个immutable对象，我们要做的就是统一数据样式，让state.header也通过get的写法获得一个immutable对象，即`state.get('header').get('focused')`的这种写法。下面为步骤： 
+> + 安装  ` yarn add redux-immutable `  
+> + 在store的reducer中我们在引入`combineReducers`方法的时候之前使用的是`redux`中的方法，现在修改为从`redux-immutable`中引。 
+> 如此而已。
