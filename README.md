@@ -11,3 +11,11 @@
 
 ##### 4.搜索框动画效果实现
 > 动画效果需要安装`react-transition-group`,然后在项目布局完成后，引入`CSSTransition`组件，将要进行动画的组件包裹即可。
+
+##### 5.使用React-Redux进行应用数据的管理
+> 首先安装依赖`redux`、`react-redux`。  
+> 创建store文件夹，index主文件使用`redux`中的createStore方法，传入reducer。 
+> 使用store的时候，需要在App.js中引入`react-redux` 的`Provider`组件,并注入。  
+> 最后主要就是在要使用store的组件中，引入`react-redux`的`conenct`方法。 
+
+
