@@ -36,3 +36,11 @@
 > + 安装  ` yarn add redux-immutable `  
 > + 在store的reducer中我们在引入`combineReducers`方法的时候之前使用的是`redux`中的方法，现在修改为从`redux-immutable`中引。 
 > 如此而已。
+
+##### 9.热门搜索样式布局&ajax获取推荐数据
+> 热门搜索样式布局略。  
+> 安装第三方依赖中间件：`redux-thunk`。 
+> 使用这个第三方中间件，首先在哪里创建的store，就在那里(主store/index)引用`redux-thunk`。 
+> 然后redux中我们需要使用 applyMiddleware方法,在composeEnhancers中使用：`applyMiddleware(thunk)`。  
+> 接着我们就可以在header中的creators去使用axios请求接口数据了，这里需要注意的一点是因为reducer中的defaultState我们设置为了immutable的对象，所以axios请求完的数据dispatch前需要将数据使用`immutable`中的`fromJS`方法转化一下。 
+> 最后就是代码的优化了。
