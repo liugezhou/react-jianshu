@@ -1,18 +1,8 @@
-import * as types from './actionTypes';
-const defaultState = {
-  focused: false
-};
+import { combineReducers } from 'redux';
+import { reducer as HeaderReducer} from '../common/header/store';
 
-export default(state=defaultState, action) =>{
-  if(Object.is(action.type,types.FOCUS_INPUT)){
-    return {
-      focused:true
-    }
-  }
-  if(Object.is(action.type,types.BLUR_INPUT)){
-    return {
-      focused:false
-    }
-  }
-  return state;
-}
+const reducer = combineReducers({
+  header:HeaderReducer
+})
+
+export default  reducer;
