@@ -10,9 +10,22 @@ export const blurInput = () => ({
   type:types.BLUR_INPUT
 })
 
+export const mouseEnter = () => ({
+  type:types.MOUSE_ENTER
+})
+
+export const mouseLeave = () => ({
+  type:types.MOUSE_LEAVE
+})
+
+export const changePage = () => ({
+  type:types.CHANGE_PAGE
+})
+
 const setList =(data) =>({
   type:types.SET_LIST,
-  data:fromJS(data)
+  data:fromJS(data),
+  totalPage:Math.ceil(data.length/10)
 })
 
 export const getList = () =>{

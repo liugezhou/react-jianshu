@@ -44,3 +44,6 @@
 > 然后redux中我们需要使用 applyMiddleware方法,在composeEnhancers中使用：`applyMiddleware(thunk)`。  
 > 接着我们就可以在header中的creators去使用axios请求接口数据了，这里需要注意的一点是因为reducer中的defaultState我们设置为了immutable的对象，所以axios请求完的数据dispatch前需要将数据使用`immutable`中的`fromJS`方法转化一下。 
 > 最后就是代码的优化了。
+
+##### 10 热门搜索换页功能实现
+> 这一节的内容主要是换页功能的实现以及细节的处理。

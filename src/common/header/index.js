@@ -20,25 +20,37 @@ import { creators }  from './store';
 
 class Header extends Component {
   getListArea(){
-    const {focused, list} = this.props;
-    if(focused){
+    let { focused, list, page,handleMouseEnter,handleMouseLeave,mouseIn,changePageList} = this.props;
+    const jsList = list.toJS();
+    const pageList = []
+    if(jsList.length){
+      for(let i = (page-1)*10; i < page*10; i++){
+          if(i>=jsList.length){
+            break;
+          }
+          pageList.push(
+            <SearchInfoItem key={jsList[i]}> { jsList[i] }  </SearchInfoItem>
+          )
+      }
+    }
+    if(focused || mouseIn){
       return (
-        <SearchInfo>
-                  <SearchInfoTitle>
-                      热门搜索
-                      <SearchInfoSwitch>换一批</SearchInfoSwitch>
-                  </SearchInfoTitle>
-                  <SearchInfoList>
-                    {list.map((item) => {
-                      return <SearchInfoItem key={item}>{item}</SearchInfoItem>
-                    })}
-                  </SearchInfoList>
-                </SearchInfo>
+          <SearchInfo onMouseEnter ={handleMouseEnter} onMouseLeave={ handleMouseLeave }>
+              <SearchInfoTitle>
+                  热门搜索
+                  <SearchInfoSwitch onClick={()=> changePageList(this.spinIcon)}>
+                    <i className="iconfont" ref={(icon) => this.spinIcon = icon}>&#xe685;</i>  换一批
+                  </SearchInfoSwitch>
+              </SearchInfoTitle>
+              <SearchInfoList>
+                  { pageList  }
+              </SearchInfoList>
+        </SearchInfo>
       )
     }
   }
   render(){
-    const {focused, handleInputFocus,handleInputBlur} = this.props;
+    const {focused, handleInputFocus,handleInputBlur,list} = this.props;
     return(
       <HeaderWrapper>
         <Logo/>
@@ -55,12 +67,12 @@ class Header extends Component {
             >
                 <NavSearch 
                       className={ focused ? 'focused' : ''}
-                      onFocus={handleInputFocus}
+                      onFocus={()=> handleInputFocus(list)}
                       onBlur = {handleInputBlur}
                 >
                 </NavSearch>
                 </CSSTransition>
-                <i  className={ focused ? 'focused iconfont' : 'iconfont'}>&#xe617;</i>
+                <i  className={ focused ? 'focused iconfont zoom' : 'iconfont zoom'}>&#xe617;</i>
                 { this.getListArea()}
           </SearchWrapper>
           <Addtion>
@@ -77,17 +89,38 @@ class Header extends Component {
 const mapStateToProps = (state) => {
   return {
     focused: state.get('header').get('focused'),
-    list:state.get('header').get('list')
+    list:state.get('header').get('list'),
+    page:state.get('header').get('page'),
+    totalPage:state.get('header').get('totalPage'),
+    mouseIn:state.get('header').get('mouseIn')
   }
 }
 const mapDispatchToProps = (dispatch) => {
   return {
-    handleInputFocus(){
-      dispatch(creators.getList())
+    handleInputFocus(list){
+      if(list.size === 0 ){
+        dispatch(creators.getList())
+      }
       dispatch(creators.focusInput())
     },
     handleInputBlur(){
       dispatch(creators.blurInput())
+    },
+    handleMouseEnter(){
+      dispatch(creators.mouseEnter())
+    },
+    handleMouseLeave(){
+      dispatch(creators.mouseLeave())
+    },
+    changePageList(spin){
+       let originAngle = spin.style.transform.replace(/[^0-9]/ig,'');
+       if(originAngle){
+        originAngle = parseInt(originAngle,10)
+       }else{
+        originAngle = 0;
+       }
+       spin.style.transform=`rotate(${originAngle + 360}deg)`;
+      dispatch(creators.changePage())
     }
   }
 }
