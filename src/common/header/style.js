@@ -13,7 +13,7 @@ export const Logo = styled.a.attrs({
 height:56px;
 position:absolute;
 top:0;
-left:0;
+left:15%;
 width:100px;
 display:block;
 background:url(${logoPic});
@@ -125,6 +125,7 @@ export const SearchInfo = styled.div`
   top:56px;
   width:240px;
   padding:0 20px;
+  background:#fff;
   box-shadow:0 0 8px rgba(0,0,0,.2);
 `
 
