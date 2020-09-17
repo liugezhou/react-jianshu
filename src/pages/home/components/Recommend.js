@@ -4,10 +4,11 @@ import { RecommendWrapper, RecommendItem } from '../style';
 
 class Recommend extends PureComponent {
 	render() {
+		const { list } = this.props;
 		return (
 			<RecommendWrapper>
 				{
-					this.props.list.map((item) => {
+					list.map((item) => {
 						return <RecommendItem imgUrl={item.get('imgUrl')} key={item.get('id')}/>
 					})
 				}

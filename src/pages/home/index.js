@@ -11,8 +11,9 @@ class Home extends PureComponent {
   handleScrollTop() {
 		window.scrollTo(0, 0);
   }
-  
+ 
   render(){
+    const { showScroll } = this.props;
     return (
       <HomeWrapper>
         <HomeLeft>
@@ -25,7 +26,7 @@ class Home extends PureComponent {
             <Recommend/>
             <Writer/>
         </HomeRight>
-        { this.props.showScroll ? <BackTop onClick={this.handleScrollTop}>顶部</BackTop> : null}
+        { showScroll ? <BackTop onClick={this.handleScrollTop}>顶部</BackTop> : null}
       </HomeWrapper>
     )
   }
