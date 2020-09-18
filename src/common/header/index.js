@@ -18,6 +18,7 @@ import {
  } from './style';
 import { connect } from 'react-redux';
 import { creators }  from './store';
+import { creators as loginCreators} from '../../pages/login/store'
 
 class Header extends Component {
   getListArea(){
@@ -51,7 +52,7 @@ class Header extends Component {
     }
   }
   render(){
-    const {focused, handleInputFocus,handleInputBlur,list} = this.props;
+    const {focused, handleInputFocus,handleInputBlur,list,login,logout} = this.props;
     return(
       <HeaderWrapper>
         <Link to='/'>
@@ -60,7 +61,10 @@ class Header extends Component {
         <Nav>
           <NavItem className='left active'>首页</NavItem>
           <NavItem className='left'>下载APP</NavItem>
-          <NavItem className='right'>登录</NavItem>
+          { login ? 
+            <NavItem className='right' onClick={logout}>退出</NavItem> : 
+           <Link to='/login'><NavItem className='right'>登录</NavItem> </Link> 
+          }
           <NavItem className='right'><i className="iconfont">&#xe636;</i></NavItem>
           <SearchWrapper>
             <CSSTransition
@@ -95,7 +99,8 @@ const mapStateToProps = (state) => {
     list:state.get('header').get('list'),
     page:state.get('header').get('page'),
     totalPage:state.get('header').get('totalPage'),
-    mouseIn:state.get('header').get('mouseIn')
+    mouseIn:state.get('header').get('mouseIn'),
+    login:state.get('login').get('login')
   }
 }
 const mapDispatchToProps = (dispatch) => {
@@ -114,6 +119,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     handleMouseLeave(){
       dispatch(creators.mouseLeave())
+    },
+    logout(){
+      dispatch(loginCreators.logout())
     },
     changePageList(spin){
        let originAngle = spin.style.transform.replace(/[^0-9]/ig,'');

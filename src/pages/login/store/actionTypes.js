@@ -1,0 +1,2 @@
+export const CHANGE_LOGIN='CHANGE_LOGIN';
+export const CHANGE_LOOUT='CHANGE_LOOUT';
