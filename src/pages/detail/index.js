@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import { DetailWrapper,Header, Content} from './style';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { creators} from './store';
 class Detail extends PureComponent {
@@ -31,4 +32,4 @@ const mapDispatch = (dispatch) => ({
     dispatch(creators.getDetail(id));
   }
 })
-export default connect(mapState,mapDispatch)(Detail);
+export default connect(mapState,mapDispatch)(withRouter(Detail));

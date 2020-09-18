@@ -83,8 +83,11 @@ class Header extends Component {
                 { this.getListArea()}
           </SearchWrapper>
           <Addtion>
+            <Link to='/write'>
             <Button className='writing'><i className="iconfont">&#xe600;</i>写文章</Button>
-            <Button className='reg'>注册</Button>
+            </Link>
+            { login ? null : <Button className='reg'>注册</Button>}
+           
           </Addtion>
         </Nav>
       </HeaderWrapper>
